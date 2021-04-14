@@ -6,16 +6,16 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/baseline_account_balance_black_18"
-        android:title="첫번째" />
+        android:title="대화" />
 
     <item android:id="@+id/second"
         app:showAsAction="ifRoom"
         android:icon="@drawable/baseline_event_black_12"
-        android:title="두번째" />
+        android:title="동료" />
 
     <item android:id="@+id/third"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/baseline_trending_up_black_16"
-        android:title="세번째" />
+        android:title="더보기" />
 </menu>
