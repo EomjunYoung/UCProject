@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+
     private val fragmentOne by lazy { FragmentOne() }
     private val fragmentTwo by lazy { FragmentTwo() }
     private val fragmentThree by lazy { FragmentThree() }
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);//뒤로가기 버튼추가
+//        supportActionBar?.title = "아이템 추가하기" //툴바 타이틀 설정
 
         initViewPager()
         initNavigationBar2()
@@ -88,9 +93,18 @@ class MainActivity : AppCompatActivity() {
             registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
                 override fun onPageSelected(position: Int) {
                     val navigation = when(position){
-                        0 -> R.id.first
-                        1 -> R.id.second
-                        2 -> R.id.third
+                        0 -> {
+                            supportActionBar?.title = "대화"
+                            R.id.first
+                        }
+                        1 -> {
+                            supportActionBar?.title = "동료"
+                            R.id.second
+                        }
+                        2 -> {
+                            supportActionBar?.title = "알림"
+                            R.id.third
+                        }
                         else -> R.id.first
                     }
 
