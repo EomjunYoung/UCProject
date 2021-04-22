@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                             R.id.second
                         }
                         2 -> {
-                            supportActionBar?.title = "알림"
+                            supportActionBar?.title = "더보기"
                             R.id.third
                         }
                         else -> R.id.first

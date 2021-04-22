@@ -13,8 +13,8 @@ class FragmentThree : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ):
             View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_three, container, false) }
+        // Inflate the layout for this fragment3
+        return inflater.inflate(R.layout.item_more_detail, container, false) }
 
 
 }
