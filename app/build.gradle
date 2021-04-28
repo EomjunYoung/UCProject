@@ -8,11 +8,6 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
-
-    viewBinding {
-        enabled = true
-    }
-
     defaultConfig {
         applicationId "com.example.ucproject"
         minSdkVersion 16
@@ -35,6 +30,16 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    // Use viewbinding
+    buildFeatures {
+        viewBinding true
+    }
+
+    // use databinding
+    buildFeatures {
+        dataBinding true
     }
 }
 

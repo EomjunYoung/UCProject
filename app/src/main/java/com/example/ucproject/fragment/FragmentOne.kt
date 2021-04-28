@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ucproject.ListAdapter
 import com.example.ucproject.R
+import com.example.ucproject.databinding.FragmentOneBinding
 import com.example.ucproject.model.User
 import kotlinx.android.synthetic.main.fragment_one.*
 import java.text.SimpleDateFormat
@@ -19,6 +20,7 @@ class FragmentOne : Fragment(){
 
     //RecyclerView를 적용할 fragment마다 어댑터를 둬야함
     private lateinit var listAdapter: ListAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

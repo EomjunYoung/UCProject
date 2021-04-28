@@ -47,6 +47,8 @@ class ListAdapter(private var users: MutableList<User>) :
     //RecyclerView.Adapter<>의 인자로 활용한다.
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+
+
         private val initial = itemView.findViewById<TextView>(R.id.item_tv_initial)
         private val name = itemView.findViewById<TextView>(R.id.item_tv_name)
         private val contents = itemView.findViewById<TextView>(R.id.item_tv_contents)

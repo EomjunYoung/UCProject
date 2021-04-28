@@ -4,19 +4,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.ucproject.fragment.FragmentOne
-import com.example.ucproject.fragment.FragmentThree
-import com.example.ucproject.fragment.FragmentTwo
+import com.example.ucproject.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
 
+
+    private val homeFragment by lazy { HomeFragment() }
     private val fragmentOne by lazy { FragmentOne() }
     private val fragmentTwo by lazy { FragmentTwo() }
     private val fragmentThree by lazy { FragmentThree() }
+    private val accountFragment by lazy { AccountFragment() }
 
-    private val fragments : List<Fragment> = listOf(fragmentOne, fragmentTwo, fragmentThree)
+    private val fragments : List<Fragment> = listOf(homeFragment, fragmentOne, fragmentTwo, fragmentThree, accountFragment)
 
     private val pagerAdapter : MainViewPagerAdapter by lazy {
         MainViewPagerAdapter(this, fragments)
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() {
         bnv_main.run {
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {
+                    R.id.nav_home -> {
+                        changeFragment(homeFragment)
+                    }
                     R.id.first -> {
                         changeFragment(fragmentOne)
                     }
@@ -48,10 +52,13 @@ class MainActivity : AppCompatActivity() {
                     R.id.third -> {
                         changeFragment(fragmentThree)
                     }
+                    R.id.nav_account -> {
+                        changeFragment(accountFragment)
+                    }
                 }
                 true
             }
-            selectedItemId = R.id.first
+            selectedItemId = R.id.nav_home
         }
     }
 
@@ -61,9 +68,11 @@ class MainActivity : AppCompatActivity() {
         bnv_main.run {
             setOnNavigationItemSelectedListener {
                 val page = when(it.itemId){
-                    R.id.first -> 0
-                    R.id.second -> 1
-                    R.id.third -> 2
+                    R.id.nav_home -> 0
+                    R.id.first -> 1
+                    R.id.second -> 2
+                    R.id.third -> 3
+                    R.id.nav_account -> 4
                     else -> 0
                 }
 
@@ -75,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
                 true
             }
-            selectedItemId = R.id.first
+            selectedItemId = R.id.nav_home
         }
 
     }
@@ -87,6 +96,15 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun callFragment() {
+        var fragmentOne: FragmentOne = FragmentOne()
+
+        var transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fl_container, fragmentOne)
+        transaction.addToBackStack("FragmentOne")
+        transaction.commit()
+    }
+
     private fun initViewPager(){
         vp_main.run{
             adapter = pagerAdapter
@@ -94,18 +112,30 @@ class MainActivity : AppCompatActivity() {
                 override fun onPageSelected(position: Int) {
                     val navigation = when(position){
                         0 -> {
+                            supportActionBar?.title = "Home"
+                            R.id.first
+                        }
+
+                        1 -> {
                             supportActionBar?.title = "대화"
                             R.id.first
                         }
-                        1 -> {
+
+                        2 -> {
                             supportActionBar?.title = "동료"
                             R.id.second
                         }
-                        2 -> {
+
+                        3 -> {
                             supportActionBar?.title = "더보기"
                             R.id.third
                         }
-                        else -> R.id.first
+
+                        4 -> {
+                            supportActionBar?.title = "Mypage"
+                            R.id.first
+                        }
+                        else -> R.id.nav_home
                     }
 
                     //viewpager의 현재화면은 currentItem(Int형)으로 받고
