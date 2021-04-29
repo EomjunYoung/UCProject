@@ -67,7 +67,11 @@ class HomeFragment : Fragment() {
         }else{
 
 
-            mainActivity?.callFragment()
+            mainActivity?.initViewPager(1)
+            mainActivity?.initNavigationBar2(1)
+
+//            mainActivity?.changeFragment(FragmentOne())
+
 
 
         }

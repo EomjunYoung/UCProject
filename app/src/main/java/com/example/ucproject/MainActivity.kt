@@ -31,12 +31,12 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);//뒤로가기 버튼추가
 //        supportActionBar?.title = "아이템 추가하기" //툴바 타이틀 설정
 
-        initViewPager()
-        initNavigationBar2()
+        initViewPager(0)
+        initNavigationBar2(0)
     }
 
     //Bottom NavigationView의 아이콘 클릭시 Fragment 변화함수
-    private fun initNavigationBar() {
+    fun initNavigationBar() {
         bnv_main.run {
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {
@@ -62,50 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //ViewPager2가 적용된 Bottom NavigationView (좌우 스와이핑시 Fragment 변화함수)
-    private fun initNavigationBar2() {
-
-        bnv_main.run {
-            setOnNavigationItemSelectedListener {
-                val page = when(it.itemId){
-                    R.id.nav_home -> 0
-                    R.id.first -> 1
-                    R.id.second -> 2
-                    R.id.third -> 3
-                    R.id.nav_account -> 4
-                    else -> 0
-                }
-
-                //viewpager의 현재화면은 currentItem(Int형)으로 받고
-                //BottomNavigationView의 현재아이콘은 currentItemId(리소스id(int))형으로 받음
-                if(page!= vp_main.currentItem){
-                    vp_main.currentItem = page
-                }
-
-                true
-            }
-            selectedItemId = R.id.nav_home
-        }
-
-    }
-
-    private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fl_container, fragment)
-            .commit()
-    }
-
-    fun callFragment() {
-        var fragmentOne: FragmentOne = FragmentOne()
-
-        var transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.fl_container, fragmentOne)
-        transaction.addToBackStack("FragmentOne")
-        transaction.commit()
-    }
-
-    private fun initViewPager(){
+    fun initViewPager(checkedNum: Int){
         vp_main.run{
             adapter = pagerAdapter
             registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
@@ -113,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     val navigation = when(position){
                         0 -> {
                             supportActionBar?.title = "Home"
-                            R.id.first
+                            R.id.nav_home
                         }
 
                         1 -> {
@@ -143,9 +100,105 @@ class MainActivity : AppCompatActivity() {
                     if(bnv_main.selectedItemId != navigation){
                         bnv_main.selectedItemId = navigation
                     }
+
+                    if(checkedNum == 1){
+                        bnv_main.selectedItemId = R.id.first
+                    }
                 }
             })
         }
+    }
+
+    //ViewPager2가 적용된 Bottom NavigationView (좌우 스와이핑시 Fragment 변화함수)
+    fun initNavigationBar2(checkedNum: Int) {
+
+        bnv_main.run {
+            setOnNavigationItemSelectedListener {
+                val page = when(it.itemId){
+                    R.id.nav_home -> 0
+                    R.id.first -> 1
+                    R.id.second -> 2
+                    R.id.third -> 3
+                    R.id.nav_account -> 4
+                    else -> 0
+
+                }
+
+                //viewpager의 현재화면은 currentItem(Int형)으로 받고
+                //BottomNavigationView의 현재아이콘은 currentItemId(리소스id(int))형으로 받음
+                if(page!= vp_main.currentItem){
+                    vp_main.currentItem = page
+                }
+
+                if(checkedNum == 1){
+                    vp_main.currentItem = 1
+                }
+
+                true
+            }
+            selectedItemId = R.id.nav_home
+        }
+
+    }
+
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fl_container, fragment)
+            .commit()
+    }
+
+    fun callFragment() {
+        var fragmentOne: FragmentOne = FragmentOne()
+
+        var transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.vp_main, fragmentOne)
+        transaction.addToBackStack("FragmentOne")
+        transaction.commit()
+    }
+
+    fun initViewPager2(){
+        vp_main.run{
+            adapter = pagerAdapter
+            registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    val navigation = when(position){
+                        0 -> {
+                            supportActionBar?.title = "대화"
+                            R.id.first
+                        }
+
+                        else -> R.id.nav_home
+                    }
+
+                    bnv_main.selectedItemId = navigation
+
+
+                }
+            })
+        }
+    }
+
+    fun initNavigationBar3() {
+
+        bnv_main.run {
+            setOnNavigationItemSelectedListener {
+                val page = when(it.itemId){
+                    R.id.nav_home -> 1
+                    else -> 0
+                }
+
+                //viewpager의 현재화면은 currentItem(Int형)으로 받고
+                //BottomNavigationView의 현재아이콘은 currentItemId(리소스id(int))형으로 받음
+                if(page!= vp_main.currentItem){
+                    vp_main.currentItem = page
+                }
+
+                true
+            }
+            selectedItemId = R.id.first
+        }
+
     }
 
 
